@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Geomtric.cpp" />
     <ClCompile Include="InterviewC.cpp" />
     <ClCompile Include="Knuth-Morris-Pratt.cpp" />
     <ClCompile Include="Permutations.cpp" />
