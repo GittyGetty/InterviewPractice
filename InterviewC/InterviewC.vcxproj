@@ -144,7 +144,7 @@
     <ClCompile Include="DynamicProgramming.cpp" />
     <ClCompile Include="Geometric.cpp" />
     <ClCompile Include="Graph.cpp" />
-    <ClCompile Include="InterviewC.cpp" />
+    <ClCompile Include="1Main.cpp" />
     <ClCompile Include="Knuth-Morris-Pratt.cpp" />
     <ClCompile Include="LinkedLists.cpp" />
     <ClCompile Include="C++Features.cpp" />
