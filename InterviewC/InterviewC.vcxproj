@@ -139,12 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Geomtric.cpp" />
+    <ClCompile Include="Arithmetic.cpp" />
+    <ClCompile Include="DataStructures.cpp" />
+    <ClCompile Include="DynamicProgramming.cpp" />
+    <ClCompile Include="Geometric.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="InterviewC.cpp" />
     <ClCompile Include="Knuth-Morris-Pratt.cpp" />
+    <ClCompile Include="LinkedLists.cpp" />
+    <ClCompile Include="C++Features.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Permutations.cpp" />
     <ClCompile Include="PrimeSieve.cpp" />
+    <ClCompile Include="Sorting.cpp" />
     <ClCompile Include="SquareRoot.cpp" />
+    <ClCompile Include="Statistics.cpp" />
     <ClCompile Include="StringManipulation.cpp" />
     <ClCompile Include="SuffixTree.cpp" />
     <ClCompile Include="TemplateMetaProgramming.cpp" />
