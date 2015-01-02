@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Knuth-Morris-Pratt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Permutations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PrimeSieve.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SuffixTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="StringManipulation.cpp">
@@ -67,6 +61,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="1Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Knuth-Morris-Pratt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SuffixTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
