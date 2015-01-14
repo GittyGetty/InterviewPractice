@@ -7,7 +7,7 @@
 
 void build_t(const char *w, size_t n) {
 	int *t = new int[n] { -1, 0 };
-	int p = 2, c = 0;
+	size_t p = 2, c = 0;
 
 	while (p < n) {
 		if (w[p - 1] == w[c]) {
@@ -106,12 +106,25 @@ size_t kmp3(const std::wstring text, const std::wstring pattern) {
 		p = pattern[t] == pattern[p] ? p + 1 : offset[p];
 	}
 
-	for (t = 0, p = 0; t < text.size();) {
-		while (text[t] == pattern[p]) { t++; p++; }
-		if (p == pattern.size()) return t - p;
+	for (t = 0, p = 0; t < text.size() && p < pattern.size(); ) {
+		while (text[t] == pattern[p]) { 
+			t++; p++; 
+			if (p == pattern.size()) return t - p;
+		}		
+		if (p == offset[p]) t++;
 		p = offset[p];
-		if (text[t] != pattern[p]) t++;
 	}
 
 	return text.size();
 }
+
+/*
+int main() {
+	auto r1 = kmp3(L"xxxxabcabcabdyyyyyy", L"abcabd");
+	auto r2 = kmp3(L"xxxxabcabcabdyyyyyy", L"abcabde");
+	auto r3 = kmp3(L"abc", L"abc");
+	auto r4 = kmp3(L"", L"");
+	auto r5 = kmp3(L"abc", L"");
+	auto r6 = kmp3(L"", L"abc");
+}
+*/

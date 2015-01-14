@@ -60,14 +60,20 @@
     <ClCompile Include="DynamicProgramming.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="1Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Knuth-Morris-Pratt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SuffixTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="1Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BitManipulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\vs\Common7\Packages\Debugger\Visualizers\My.natvis" />
   </ItemGroup>
 </Project>

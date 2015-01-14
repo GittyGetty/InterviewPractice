@@ -1,5 +1,8 @@
+#include <numeric>
 #include <algorithm>
 #include <tuple>
+#include <vector>
+#include <bitset>
 
 /***********************************************************/
 
@@ -69,3 +72,32 @@ int max_product(int a[], size_t n) {
 	}
 	return max;
 }
+
+/***********************************************************/
+
+int booth_multiply(int a, int b) {
+	return 0;
+}
+
+/***********************************************************/
+
+unsigned long long_multiplication(unsigned a, unsigned b) {
+	const size_t n = sizeof(unsigned) * CHAR_BIT / 2;
+	auto av = std::bitset<n>(a);
+	auto bv = std::bitset<n>(b);
+	auto rv = std::bitset<2 * n>();
+
+	unsigned x = 0;
+	for (size_t i = 0; i < 2 * n; i++) {
+		size_t j0 = std::max(n, i + 1) - n;
+		size_t jn = std::min(n, i + 1);
+		for (size_t j = j0; j < jn; j++)
+			x += av[j] * bv[i - j];
+		rv[i] = x & 1;
+		x >>= 1;
+	}
+	return rv.to_ullong();
+}
+
+/***********************************************************/
+

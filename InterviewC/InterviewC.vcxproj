@@ -139,12 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="1Main.cpp" />
     <ClCompile Include="Arithmetic.cpp" />
+    <ClCompile Include="BitManipulation.cpp" />
     <ClCompile Include="DataStructures.cpp" />
     <ClCompile Include="DynamicProgramming.cpp" />
     <ClCompile Include="Geometric.cpp" />
     <ClCompile Include="Graph.cpp" />
-    <ClCompile Include="1Main.cpp" />
     <ClCompile Include="Knuth-Morris-Pratt.cpp" />
     <ClCompile Include="LinkedLists.cpp" />
     <ClCompile Include="C++Features.cpp" />
@@ -157,6 +158,9 @@
     <ClCompile Include="StringManipulation.cpp" />
     <ClCompile Include="SuffixTree.cpp" />
     <ClCompile Include="TemplateMetaProgramming.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\vs\Common7\Packages\Debugger\Visualizers\My.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
