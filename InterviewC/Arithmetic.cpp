@@ -3,6 +3,7 @@
 #include <tuple>
 #include <vector>
 #include <bitset>
+#include <cstdint>
 
 /***********************************************************/
 
@@ -81,18 +82,19 @@ int booth_multiply(int a, int b) {
 
 /***********************************************************/
 
-unsigned long long_multiplication(unsigned a, unsigned b) {
-	const size_t n = sizeof(unsigned) * CHAR_BIT / 2;
-	auto av = std::bitset<n>(a);
-	auto bv = std::bitset<n>(b);
+uint64_t long_multiplication(uint32_t a, uint32_t b) {
+	const size_t n = sizeof(uint32_t) * CHAR_BIT;
+	auto av = std::bitset<n>(a), bv = std::bitset<n>(b);
 	auto rv = std::bitset<2 * n>();
 
-	unsigned x = 0;
+	uint32_t x = 0;
 	for (size_t i = 0; i < 2 * n; i++) {
 		size_t j0 = std::max(n, i + 1) - n;
 		size_t jn = std::min(n, i + 1);
+
 		for (size_t j = j0; j < jn; j++)
-			x += av[j] * bv[i - j];
+			x += av[j] & bv[i - j];
+
 		rv[i] = x & 1;
 		x >>= 1;
 	}

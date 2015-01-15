@@ -1,6 +1,9 @@
-#include <string>
+﻿#include <string>
 #include <iostream>
 #include <cstdio>
+#include <vector>
+#include <set>
+#include <memory>
 
 /************************************************************************/
 
@@ -33,4 +36,47 @@ void string_matcher(const char *s, size_t ss, const char *p, size_t ps) {
 
 	if (col & 1ULL << (ps - 1))
 		printf("Match @ %zu\n", ss - ps + 1);
+}
+
+/************************************************************************/
+
+template <typename T>
+class Array2D {
+private:
+	std::unique_ptr<T> array_;
+	size_t y_;
+public:
+	Array2D(size_t x, size_t y) {
+		array_.reset(new T[x * y]);
+		y_ = y;
+	}
+	T* operator[](size_t p) {
+		return array_.get() + p * y_;
+	}
+};
+
+typedef std::wstring::size_type ssize;
+
+std::set<std::wstring> longest_common_substrings(std::wstring sa, std::wstring sb) {
+	auto prefixes = Array2D<ssize>(sa.size(), sb.size());
+	std::set<std::wstring> result;
+	ssize longest = 0;
+
+	for (ssize a = 0; a < sa.size(); ++a) {
+		for (ssize b = 0; b < sb.size(); ++b) {
+			if      (sa[a] != sb[b])   prefixes[a][b] = 0;
+			else if (a == 0 || b == 0) prefixes[a][b] = 1;
+			else                       prefixes[a][b] = prefixes[a - 1][b - 1] + 1;
+
+			if (prefixes[a][b] < longest) continue;
+			if (prefixes[a][b] > longest) {
+				longest = prefixes[a][b];
+				result.clear();
+			}
+			auto sub = sa.substr(a - longest + 1, longest);
+			result.insert(sub);
+		}
+	}
+
+	return result;
 }

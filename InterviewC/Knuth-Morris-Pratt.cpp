@@ -96,18 +96,19 @@ std::cout << kmp2(L"日本日本日本語日本語日本人日本日本日本日
 */
 
 /****************************************************************/
-
-size_t kmp3(const std::wstring text, const std::wstring pattern) {
-	std::vector<size_t> offset(pattern.size(), 0);
-	size_t p, t;
+typedef std::wstring::size_type ssize;
+ssize kmp_compact(const std::wstring &text, const std::wstring &pattern) {
+	std::vector<ssize> offset(pattern.size(), 0);
+	ssize p, t;
 
 	for (t = 1, p = 0; t < pattern.size(); t++) {
 		offset[t] = p;
 		p = pattern[t] == pattern[p] ? p + 1 : offset[p];
 	}
-
-	for (t = 0, p = 0; t < text.size() && p < pattern.size(); ) {
-		while (text[t] == pattern[p]) { 
+	
+	t = 0; p = 0;
+	while (t < text.size() && p < pattern.size()) {
+		while (text[t] == pattern[p]) {
 			t++; p++; 
 			if (p == pattern.size()) return t - p;
 		}		

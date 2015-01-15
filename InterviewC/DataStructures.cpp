@@ -1,3 +1,5 @@
+#include <memory>
+
 template <typename T> class PriorityQueue {
 public:
 	PriorityQueue(size_t size) {
@@ -32,4 +34,21 @@ public:
 private:
 	size_t size_, start_, elements_;
 	T* queue_;
+};
+
+/********************************************************************/
+
+template <typename T>
+class Array2D {
+private:
+	std::unique_ptr<T> array_;
+	size_t y_;
+public:
+	Array2D(size_t x, size_t y) {
+		array_.reset(new T[x * y]);
+		y_ = y;
+	}
+	T* operator[](size_t p) {
+		return array_.get() + p * y_;
+	}
 };
