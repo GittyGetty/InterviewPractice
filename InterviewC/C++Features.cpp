@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 /************************************************************************/
 
@@ -52,3 +53,29 @@ public:
 };
 
 /************************************************************************/
+
+size_t destructor_count = 0;
+class MyClass {
+public:
+    ~MyClass() {
+        std::cout << "Destructor call #" << ++destructor_count << std::endl;
+    }
+};
+
+typedef std::unique_ptr<MyClass[]> ManagedC;
+
+void test_dynamic_2darray1() {
+    size_t dimension1 = 10, dimension2 = 10;
+
+    auto managed_array = std::unique_ptr<ManagedC[]>(new ManagedC[dimension1]);
+    for (size_t i = 0; i < dimension1; ++i)
+        managed_array[i] = ManagedC(new MyClass[dimension2]);
+}
+
+void test_dynamic_2darray2() {
+    size_t dimension1 = 10, dimension2 = 10;
+
+    auto simple_array = new MyClass*[dimension1];
+    for (size_t i = 0; i < dimension1; ++i)
+        simple_array[i] = new MyClass[dimension2];
+}

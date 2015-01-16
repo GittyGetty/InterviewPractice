@@ -67,6 +67,20 @@
       <ProjName>InterviewC</ProjName>
     </ProjBinary>
   </Binaries>
+  <Reports>
+    <Report>
+      <Path>Array2D No Inlining.vsp</Path>
+    </Report>
+    <Report>
+      <Path>Array2D Inlined.vsp</Path>
+    </Report>
+    <Report>
+      <Path>Vector of Vector.vsp</Path>
+    </Report>
+    <Report>
+      <Path>InterviewC150115.vsp</Path>
+    </Report>
+  </Reports>
   <Launches>
     <ProjBinary>
       <Path>:PB:{E3A22629-F546-422D-8003-D441057E0D7C}|InterviewC\InterviewC.vcxproj</Path>
