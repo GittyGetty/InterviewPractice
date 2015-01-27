@@ -22,6 +22,7 @@
     <ProjectGuid>{E3A22629-F546-422D-8003-D441057E0D7C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>InterviewC</RootNamespace>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -29,6 +30,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -87,10 +89,12 @@
       <SDLCheck>true</SDLCheck>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <IntrinsicFunctions>false</IntrinsicFunctions>
+      <CompileAsManaged>true</CompileAsManaged>
+      <AdditionalIncludeDirectories>E:\Boost\boost_1_57_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="1Main.cpp" />
     <ClCompile Include="Arithmetic.cpp" />
+    <ClCompile Include="BinaryTrees.cpp" />
     <ClCompile Include="BitManipulation.cpp" />
     <ClCompile Include="DataStructures.cpp" />
     <ClCompile Include="DynamicProgramming.cpp" />
@@ -158,6 +163,7 @@
     <ClCompile Include="LinkedLists.cpp" />
     <ClCompile Include="C++Features.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="Performance.cpp" />
     <ClCompile Include="Permutations.cpp" />
     <ClCompile Include="PrimeSieve.cpp" />
     <ClCompile Include="Sorting.cpp" />
@@ -168,7 +174,27 @@
     <ClCompile Include="TemplateMetaProgramming.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\vs\Common7\Packages\Debugger\Visualizers\My.natvis" />
+    <None Include="C:\vs\Common7\Packages\Debugger\Visualizers\My.natvis">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllPrototypes.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.GraphModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="InterviewC.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

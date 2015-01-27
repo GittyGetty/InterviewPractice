@@ -1,6 +1,8 @@
 #include <vector>
 #include <algorithm>
 
+/*****************************************************************************/
+
 struct Point {
 	int x, y;
 	double distance(const Point &p) {
@@ -64,3 +66,5 @@ double closest(const Points &points) {
 
 	return closest_sorted(px, py);
 }
+
+/*****************************************************************************/

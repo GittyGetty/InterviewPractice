@@ -9,97 +9,150 @@
 
 std::tuple<size_t, size_t>* find_sub_with_sum
 (unsigned int a[], size_t l, unsigned int s) {
-	size_t i = 0;
-	unsigned int cs = 0;
+    size_t i = 0;
+    unsigned int cs = 0;
 
-	for (size_t j = 0; j < l; j++) {
-		cs += a[j];
-		while (cs > s) cs -= a[i++];
-		if (cs == s)
-			return new std::tuple<size_t, size_t>(i, j);
-	}
-	return nullptr;
+    for (size_t j = 0; j < l; j++) {
+        cs += a[j];
+        while (cs > s) cs -= a[i++];
+        if (cs == s)
+            return new std::tuple<size_t, size_t>(i, j);
+    }
+    return nullptr;
 }
 
 void find_sub_with_sum_driver()
 {
-	unsigned int a[] = { 0, 10, 5, 15, 20 };
-	auto t = find_sub_with_sum(a, sizeof(a) / sizeof(unsigned int), 20);
+    unsigned int a[] = { 0, 10, 5, 15, 20 };
+    auto t = find_sub_with_sum(a, sizeof(a) / sizeof(unsigned int), 20);
 }
 
 /***********************************************************/
 
 int median(const int a[], size_t n) {
-	return (a[n / 2] + a[(n - 1) / 2]) / 2;
+    return (a[n / 2] + a[(n - 1) / 2]) / 2;
 }
 
 int median(const int a1[], const int a2[], size_t n) {
-	if (n <= 0) return -1;
-	if (n == 1) return (a1[0] + a2[0]) / 2;
-	if (n == 2) return (std::max(a1[0], a2[0])
-		+ std::min(a1[1], a2[1])) / 2;
+    if (n <= 0) return -1;
+    if (n == 1) return (a1[0] + a2[0]) / 2;
+    if (n == 2) return (std::max(a1[0], a2[0])
+        + std::min(a1[1], a2[1])) / 2;
 
-	int m1 = median(a1, n);
-	int m2 = median(a2, n);
+    int m1 = median(a1, n);
+    int m2 = median(a2, n);
 
-	if (m1 > m2) std::swap(a1, a2);
-	return median(a1 + (n - 1) / 2, a2, (n + 2) / 2);
+    if (m1 > m2) std::swap(a1, a2);
+    return median(a1 + (n - 1) / 2, a2, (n + 2) / 2);
 }
 
 /***********************************************************/
 
 int max_sum(int* a, int n) {
-	int max = 0, sum = 0;
+    int max = 0, sum = 0;
 
-	for (int i = 0; i < n; i++) {
-		sum += a[i];
-		sum = sum > 0 ? sum : 0;
-		max = sum > max ? sum : max;
-	}
+    for (int i = 0; i < n; i++) {
+        sum += a[i];
+        sum = sum > 0 ? sum : 0;
+        max = sum > max ? sum : max;
+    }
 
-	return max;
+    return max;
 }
 
 /***********************************************************/
 
 int max_product(int a[], size_t n) {
-	int mini = a[0], maxi = a[0], max = a[0];
-	for (size_t i = 1; i < n; i++) {
-		int maxp = a[i] * maxi;
-		int minp = a[i] * mini;
-		maxi = std::max(a[i], std::max(maxp, minp));
-		mini = std::min(a[i], std::min(maxp, minp));
-		max = std::max(maxi, max);
-	}
-	return max;
+    int mini = a[0], maxi = a[0], max = a[0];
+    for (size_t i = 1; i < n; i++) {
+        int maxp = a[i] * maxi;
+        int minp = a[i] * mini;
+        maxi = std::max(a[i], std::max(maxp, minp));
+        mini = std::min(a[i], std::min(maxp, minp));
+        max = std::max(maxi, max);
+    }
+    return max;
 }
 
 /***********************************************************/
 
 int booth_multiply(int a, int b) {
-	return 0;
+    return 0;
 }
 
 /***********************************************************/
 
 uint64_t long_multiplication(uint32_t a, uint32_t b) {
-	const size_t n = sizeof(uint32_t) * CHAR_BIT;
-	auto av = std::bitset<n>(a), bv = std::bitset<n>(b);
-	auto rv = std::bitset<2 * n>();
+    const size_t n = sizeof(uint32_t) * CHAR_BIT;
+    auto av = std::bitset<n>(a), bv = std::bitset<n>(b);
+    auto rv = std::bitset<2 * n>();
 
-	uint32_t x = 0;
-	for (size_t i = 0; i < 2 * n; i++) {
-		size_t j0 = std::max(n, i + 1) - n;
-		size_t jn = std::min(n, i + 1);
+    uint32_t x = 0;
+    for (size_t i = 0; i < 2 * n; i++) {
+        size_t j0 = std::max(n, i + 1) - n;
+        size_t jn = std::min(n, i + 1);
 
-		for (size_t j = j0; j < jn; j++)
-			x += av[j] & bv[i - j];
+        for (size_t j = j0; j < jn; j++)
+            x += av[j] & bv[i - j];
 
-		rv[i] = x & 1;
-		x >>= 1;
-	}
-	return rv.to_ullong();
+        rv[i] = x & 1;
+        x >>= 1;
+    }
+    return rv.to_ullong();
 }
 
-/***********************************************************/
+/**********************************************************************/
 
+unsigned long long find_next_number(unsigned long long n) {
+    typedef unsigned short digit;
+    const digit base = 10;
+    digit pd = 0; // Previous digit.
+    digit cd; // Current digit.
+    digit count[base] = { 0 };
+    decltype(n) result = n;
+
+    // Find least significant digit that is out of order.
+    while (result >= base) {
+        cd = result % base;
+        result /= base;
+        ++count[cd];
+        if (cd < pd) break;
+        pd = cd;
+    }
+    if (cd >= pd) return n;
+
+    // Find a digit less significant and larger than the above.
+    for (++cd; count[cd] == 0; ++cd) {}
+
+    // Append that digit to the result.
+    result = result * base + cd;
+    --count[cd];
+
+    // Append remaining digits in sorted order.
+    for (cd = 0; cd < base; cd++)
+        while (count[cd]--) result = result * base + cd;
+
+    return result;
+}
+
+//98725349
+//int n1 = find_next_number2(98724953);
+//int n2 = find_next_number2(321);
+//int n3 = find_next_number2(1);
+//int n4 = find_next_number2(218765);
+
+/**********************************************************************/
+
+/*
+Given an array where each element is the money a person have and there 
+is only Rs. 3 note. We need to check whether it is possible to divide 
+the money equally among all the persons or not. If it is possible then 
+find Minimum number of transactions needed.
+
+8
+11  4 transactions
+12
+13
+6
+
+*/
