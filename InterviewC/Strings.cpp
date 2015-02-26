@@ -10,7 +10,6 @@
 #include <stack>
 
 /************************************************************************/
-
 // Print the reverse of a string using recursion.
 void print_reverse(std::wstring s) {
     if (s.size() == 0) return;
@@ -22,9 +21,7 @@ void print_reverse(std::wstring s) {
 void print_reverse_test() {
     print_reverse(L"ABCDEF");
 }
-
 /************************************************************************/
-
 void string_matcher(const char *s, size_t ss, const char *p, size_t ps) {
     unsigned long long lp['z' - 'a' + 1] = { 0 };
 
@@ -41,9 +38,7 @@ void string_matcher(const char *s, size_t ss, const char *p, size_t ps) {
     if (col & 1ULL << (ps - 1))
         printf("Match @ %zu\n", ss - ps + 1);
 }
-
 /************************************************************************/
-
 typedef std::wstring::size_type ssize;
 typedef std::unique_ptr<ssize[]> ussize;
 std::vector<std::wstring> longest_common_substrings(std::wstring sa, std::wstring sb) {
@@ -72,7 +67,6 @@ std::vector<std::wstring> longest_common_substrings(std::wstring sa, std::wstrin
     return result;
 }
 /************************************************************************/
-
 std::wstring longest_common_substring(std::wstring sa, std::wstring sb) {
     typedef std::wstring::size_type ssize;
     typedef std::unique_ptr<ssize[]> ussize;
@@ -95,9 +89,7 @@ std::wstring longest_common_substring(std::wstring sa, std::wstring sb) {
     }
     return longest;
 }
-
 /************************************************************************/
-
 std::wstring longest_palindrome2(std::wstring s) {
     if (s.size() == 0) return L"";
 
@@ -136,9 +128,7 @@ std::wstring longest_palindrome2(std::wstring s) {
 
     return s.substr(longest_start, longest_length);
 }
-
 /******************************************************************/
-
 bool is_balanced(std::wstring s) {
     typedef std::wstring::size_type ssize;
     ssize balance = 0;
@@ -155,7 +145,6 @@ bool is_balanced(std::wstring s) {
     }
     return balance == 0;
 }
-
 /******************************************************************/
 bool are_parentheses_balanced(std::string exp) {
     std::stack<char> stack;
@@ -173,3 +162,10 @@ bool are_parentheses_balanced(std::string exp) {
     }
     return stack.size() == 0;
 }
+/******************************************************************/
+// Check if one string is a rotation of another string.
+bool is_rotation(std::wstring s1, std::wstring s2) {
+    std::wstring c = s1 + s1;
+    return s1.size() == s2.size() && c.find(s2) != std::string::npos;
+}
+/******************************************************************/

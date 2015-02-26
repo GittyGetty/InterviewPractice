@@ -24,19 +24,15 @@ namespace trie {
             suffix = node == NULL ? this : node;
             id = node_id++;
         }
-
         ~SuffixNode() {
             std::cout << this->id << std::endl;
         }
-
         SuffixNode* operator[](wchar_t c) {
             return children_.find(c) == children_.end() ? nullptr : children_[c].get();
         }
-
         void add_link(wchar_t c, SuffixNode* node) {
             children_[c] = Node(node);
         }
-
         bool contains(const std::wstring &pattern) {
             auto current = this;
             for (auto c : pattern) {
@@ -46,7 +42,6 @@ namespace trie {
             return true;
         }
     };
-
     Node build_trie(const std::wstring &s) {
         if (s.size() == 0) return Node(new SuffixNode());
 
@@ -89,9 +84,7 @@ namespace trie {
 //}
 
 /*****************************************************************/
-
 #define MAX_CHAR 256
-
 struct SuffixTreeNode {
     struct SuffixTreeNode *children[MAX_CHAR];
     struct SuffixTreeNode *suffixLink;
@@ -99,7 +92,6 @@ struct SuffixTreeNode {
     int start;
     int *end;
 };
-
 typedef struct SuffixTreeNode Node;
 
 char text[100];
@@ -196,7 +188,7 @@ void extendSuffixTree(int pos) {
 }
 
 void setSuffixIndexByDFS(Node *n, int suffix) {
-    if (n == NULL) 
+    if (n == NULL)
         return;
 
     bool leaf = true;
@@ -215,14 +207,14 @@ void setSuffixIndexByDFS(Node *n, int suffix) {
 }
 
 void freeSuffixTreeByPostOrder(Node *n) {
-    if (n == NULL) 
+    if (n == NULL)
         return;
 
     for (int i = 0; i < MAX_CHAR; i++)
         if (n->children[i] != NULL)
             freeSuffixTreeByPostOrder(n->children[i]);
 
-    if (n->suffixIndex == -1) 
+    if (n->suffixIndex == -1)
         free(n->end);
     free(n);
 }
@@ -244,7 +236,7 @@ void buildSuffixTree() {
 //  0: Have remainder
 //  1: Match
 int traverseEdge(char *str, int idx, int start, int end) {
-    for (int k = start; k <= end && str[idx] != '\0'; k++, idx++) 
+    for (int k = start; k <= end && str[idx] != '\0'; k++, idx++)
         if (text[k] != str[idx])
             return -1;
 
@@ -267,13 +259,13 @@ int doTraversalToCountLeaf(Node *n) {
 }
 
 int countLeaf(Node *n) {
-    if (n == NULL) 
+    if (n == NULL)
         return 0;
     return doTraversalToCountLeaf(n);
 }
 
 int doTraversal(Node *n, char* str, int idx) {
-    if (n == NULL) 
+    if (n == NULL)
         return 0;
 
     if (n->start != -1) {
@@ -283,13 +275,13 @@ int doTraversal(Node *n, char* str, int idx) {
             if (n->suffixIndex > -1) {
                 printf("%s: pattern @ %d.\n", text, n->suffixIndex);
                 return 1;
-            }            
+            }
             return countLeaf(n);
         }
         idx += edgeLength(n);
     }
 
-    if (n->children[str[idx]] == NULL) 
+    if (n->children[str[idx]] == NULL)
         return 0;
 
     return doTraversal(n->children[str[idx]], str, idx);

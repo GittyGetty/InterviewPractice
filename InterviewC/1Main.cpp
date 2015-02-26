@@ -9,24 +9,31 @@
 #include <string>
 #include <numeric>
 
-#include "AllPrototypes.h"
+#include "Arithmetic.h"
+#include "BinaryTrees.h"
+#include "Permutations.h"
+#include "Sorting.h"
+#include "String.h"
 
-using namespace BinaryTrees;
-using namespace Microsoft::VisualStudio::GraphModel;
-
-void f() {
-    std::vector<size_t> values(10);
-    std::iota(values.begin(), values.end(), 1);
-    auto tree = BinaryTrees::generate_random_tree(values, 42);
-
-    Node<size_t> *root = &tree;
-    append_node<size_t>(&root, 11);
-
-    Graph^ graph = ToGraph(&tree);
-    graph->Save(L"BinaryTree.dgml", gcnew GraphSerializationSettings());
-}
+#include <stdio.h>
+#define TOTAL_ELEMENTS (sizeof(array) / sizeof(array[0]))
+int array[] = { 23, 34, 12, 17, 204, 99, 16 };
 
 int main() {
-    f();
-    return 0;
+    int d = TOTAL_ELEMENTS;
+    for (d = -1; d <= ((ptrdiff_t)TOTAL_ELEMENTS - 2); d++)
+        printf("%d\n", array[d + 1]);
+
+    using namespace BinaryTrees;
+
+    std::vector<int> v = { 1, 2, 3, 4, 6, 5, 7, 8 };
+    straight_insertion_sort(v);
+
+    bool b;
+    b = is_rotation(L"stackoverflow", L"tackoverflows");
+    b = is_rotation(L"stackoverflow", L"ackoverflowst");
+    b = is_rotation(L"stackoverflow", L"overflowstack");
+    b = is_rotation(L"stackoverflow", L"stackoverflwo");
+
+    if (printf("asdfadf"), false) {}
 }
