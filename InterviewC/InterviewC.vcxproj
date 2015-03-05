@@ -167,6 +167,7 @@
     <ClCompile Include="Performance.cpp" />
     <ClCompile Include="Permutations.cpp" />
     <ClCompile Include="PrimeSieve.cpp" />
+    <ClCompile Include="Queue.cpp" />
     <ClCompile Include="Sorting.cpp" />
     <ClCompile Include="SquareRoot.cpp" />
     <ClCompile Include="Statistics.cpp" />
@@ -183,7 +184,10 @@
     <ClInclude Include="Arithmetic.h" />
     <ClInclude Include="BinaryTrees.h" />
     <ClInclude Include="BitManipulation.h" />
+    <ClInclude Include="Graph.h" />
+    <ClInclude Include="LinkedLists.h" />
     <ClInclude Include="Permutations.h" />
+    <ClInclude Include="Queue.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Sorting.h" />
     <ClInclude Include="String.h" />

@@ -169,3 +169,52 @@ bool is_rotation(std::wstring s1, std::wstring s2) {
     return s1.size() == s2.size() && c.find(s2) != std::string::npos;
 }
 /******************************************************************/
+// Best: O(n + m)
+// Average: O(n + m)
+// Worst: O(n * m)
+size_t rabin_karp_search(const std::wstring &pat, const std::wstring &txt) {
+    const size_t ps = pat.size();
+    const size_t ts = txt.size();
+    const int d = std::numeric_limits<unsigned char>::max() + 1;
+    const int q = 101; // A prime number
+        
+    int p = 0; // Hash value for pattern
+    int t = 0; // Hash value for txt
+    int h = 1;    
+
+    for (size_t i = 0; i < ps - 1; i++) h = (h * d) % q;
+    for (size_t i = 0; i < ps; i++) {
+        p = (d * p + pat[i]) % q;
+        t = (d * t + txt[i]) % q;
+    }
+    for (size_t i = 0; i <= ts - ps; i++) {
+        if (p == t) {
+            size_t j;
+            for (j = 0; j < ps; j++) if (txt[i + j] != pat[j]) break;
+            if (j == ps) return i;
+        }
+        if (i < ts - ps) {
+            t = (d * (t - txt[i] * h) + txt[i + ps]) % q;
+            if (t < 0) t += q;
+        }
+    }
+    return ts;
+}
+/******************************************************************/
+// Maximum parenthesis depth.
+size_t max_depth(std::string s) {
+    size_t current_max = 0, max = 0;
+
+    for (size_t i = 0; i < s.size(); ++i) {
+        if (s[i] == '(') {
+            ++current_max;
+            max = std::max(max, current_max);
+        }
+        else if (s[i] == ')') {
+            if (current_max == 0) return 0;
+            --current_max;
+        }
+    }
+    return current_max == 0 ? max : 0;
+}
+/******************************************************************/
