@@ -1,18 +1,21 @@
 #include <memory>
+#include <vector>
 
-template <typename T> class PriorityQueue {
+#include "DataStructures.h"
+
+/********************************************************************/
+template <typename T> 
+class FifoQueue {
 public:
-	PriorityQueue(size_t size) {
+	FifoQueue(size_t size) {
 		size_ = size;
 		start_ = 0;
 		elements_ = 0;
 		queue_ = new T[size];
 	}
-
-	~PriorityQueue() {
+	~FifoQueue() {
 		delete queue_;
 	}
-
 	void enqueue(T item) {
 		assert(elements_ < size_);
 
@@ -20,7 +23,6 @@ public:
 		queue_[idx] = item;
 		++elements_;
 	}
-
 	T dequeue() {
 		assert(elements_ > 0);
 
@@ -35,9 +37,7 @@ private:
 	size_t size_, start_, elements_;
 	T* queue_;
 };
-
 /********************************************************************/
-
 template <typename T>
 class Array2D {
 private:
@@ -52,3 +52,15 @@ public:
 		return array_.get() + p * y_;
 	}
 };
+/********************************************************************/
+void reverse_array_stl(int* a, size_t n) {
+    std::reverse(a, a + n);
+}
+void reverse_array(int* a, size_t n) {
+    for (size_t i = 0; i < n / 2; ++i)
+        std::swap(a[i], a[n - i - 1]);
+}
+void reverse_vector(std::vector<int> v) {
+    std::reverse(v.begin(), v.end());
+}
+/********************************************************************/

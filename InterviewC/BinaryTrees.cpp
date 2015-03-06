@@ -64,6 +64,7 @@ namespace BinaryTrees
                           std::numeric_limits<int>::max());
     }
     /*************************************************************************************/
+    // http://www.geeksforgeeks.org/connect-nodes-at-same-level-with-o1-extra-space/
     Node<int>* find_sibling(Node<int> *n) {
         for (n = n->sibling; n; n = n->sibling) {
             if (n->left) return n->left;
@@ -284,6 +285,21 @@ namespace BinaryTrees
             z->color = 'R';
             rb_insert_fixup(root, z);
         }
+    }
+    /*************************************************************************************/
+    // http://www.geeksforgeeks.org/connect-nodes-at-same-level/
+    // Connect levels in complete binary tree.
+    void link_levels_complete2(Node<int>* p) {
+        if (!p) return;
+        if (p->left) p->left->sibling = p->right;
+        if (p->right) p->right->sibling = p->sibling ? p->sibling->left : NULL;
+
+        link_levels_complete2(p->left);
+        link_levels_complete2(p->right);
+    }
+    void link_levels_complete(Node<int>*p) {
+        p->sibling = NULL;
+        link_levels_complete2(p);
     }
     /*************************************************************************************/
 }

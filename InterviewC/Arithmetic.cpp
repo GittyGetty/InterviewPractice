@@ -192,13 +192,28 @@ int find_first_missing(const std::vector<int> &a) {
 int find_first_missing(const std::vector<int> &a, const int max) {
     return max * (max + 1) - std::accumulate(a.begin(), a.end(), 0);
 }
-void find_first_missing() {
+void find_first_missing_test() {
     const int max = 50;
     std::vector<int> v(max * 2);
     std::iota(v.begin(), v.begin() + max, 1);
     std::iota(v.begin() + max, v.end(), 1);
     v.erase(v.begin() + 10 - 1);
+
+    // Should both return the same number.
     int missing = find_first_missing(v);
     int missing2 = find_first_missing(v, max);
+}
+/**********************************************************************/
+long sum_numbers(const std::vector<int> &a) {
+    long s = 0;
+    for (int i : a) {
+        if (i > 0 && s > INT_MAX - i) throw new std::exception("Overflow");
+        if (i < 0 && s < INT_MIN - i) throw new std::exception("Undeflow");
+        s += i;
+    }
+    return s;
+}
+long sum_numbers_stl(const std::vector<int> &a) {
+    return std::accumulate(a.begin(), a.end(), 0);
 }
 /**********************************************************************/

@@ -11,11 +11,32 @@
 
 #include "Arithmetic.h"
 #include "BinaryTrees.h"
+#include "DataStructures.h"
+#include "DynamicProgramming.h"
 #include "Permutations.h"
 #include "Sorting.h"
 #include "String.h"
 
 int main() {
+    /***************************************************************************/
+    std::vector<int> v = { 1, 2, 3, 4, 5 };
+    int* a = &v[0];
+    reverse_array_stl(a, v.size());
+    reverse_array(a, v.size());
+    return 0;
+    /***************************************************************************/
+    long s = sum_numbers({ INT_MAX, INT_MAX });
+    return 0;
+    /***************************************************************************/
+    bool b;
+    b = can_win_print_solution({ 1, 2, 3, 4, 5 }, 10); // true
+    b = will_not_lose({ 1, 2, 3, 4, 5 }, 10); // true
+    b = can_win_print_solution({ 1, 2, 3, 4, 5 }, 100); // false
+    b = will_not_lose({ 1, 2, 3, 4, 5 }, 100); // true
+    b = can_win({ 1 }, 10); // false
+    b = can_win({ 10 }, 10); // true
+    b = can_win({ 9, 1 }, 10); // false
+    return 0;
     /***************************************************************************/
     size_t pos;
     pos = rabin_karp_search(L"abc", L"123456789abc123456789");
