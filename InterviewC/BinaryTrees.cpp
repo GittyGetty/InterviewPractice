@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <string>
 #include <functional>
 #include <memory>
@@ -300,6 +301,25 @@ namespace BinaryTrees
     void link_levels_complete(Node<int>*p) {
         p->sibling = NULL;
         link_levels_complete2(p);
+    }
+    /*************************************************************************************/
+    // http://www.geeksforgeeks.org/vertex-cover-problem-set-2-dynamic-programming-solution-tree/
+    // Finds the size of the vertex cover of a binary tree. Every edge must be represented
+    // by one of its nodes.
+    size_t cover(Node<int> *root) {
+        if (!root) return 0;
+        if (!root->left && !root->right) return 0;
+        if (root->cover) return root->cover;
+
+        // 'root' is either included or excluded. If it is excluded, both children must 
+        // be part of the set cover or there would be no edge to root.
+        size_t incl = 1 + cover(root->left) + cover(root->right);
+        size_t excl = 0;
+
+        if (root->left) excl += 1 + cover(root->left->left) + cover(root->left->right);
+        if (root->right) excl += 1 + cover(root->right->left) + cover(root->right->right);
+
+        return root->cover = std::min(incl, excl);
     }
     /*************************************************************************************/
 }

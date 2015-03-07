@@ -8,6 +8,9 @@
 #include <algorithm>
 #include <cmath>
 #include <stack>
+#include <vector>
+
+#include "String.h"
 
 /************************************************************************/
 // Print the reverse of a string using recursion.
@@ -17,7 +20,6 @@ void print_reverse(std::wstring s) {
     s = s.substr(0, s.size() - 1);
     print_reverse(s);
 }
-
 void print_reverse_test() {
     print_reverse(L"ABCDEF");
 }
@@ -139,7 +141,7 @@ bool is_balanced(std::wstring s) {
         if (s[c] == ')') {
             // But it can underflow. It's important to check before 
             // decrement.
-            if (balance == 0) return false; 
+            if (balance == 0) return false;
             balance--;
         }
     }
@@ -177,10 +179,10 @@ size_t rabin_karp_search(const std::wstring &pat, const std::wstring &txt) {
     const size_t ts = txt.size();
     const int d = std::numeric_limits<unsigned char>::max() + 1;
     const int q = 101; // A prime number
-        
+
     int p = 0; // Hash value for pattern
     int t = 0; // Hash value for txt
-    int h = 1;    
+    int h = 1;
 
     for (size_t i = 0; i < ps - 1; i++) h = (h * d) % q;
     for (size_t i = 0; i < ps; i++) {
@@ -216,5 +218,37 @@ size_t max_depth(std::string s) {
         }
     }
     return current_max == 0 ? max : 0;
+}
+/******************************************************************/
+// http://www.geeksforgeeks.org/find-given-string-can-represented-substring-iterating-substring-n-times/
+bool is_repeating_string(std::wstring s) {
+    size_t n = s.size();
+    std::vector<int> o(n, 0);
+    size_t p = 0;
+    for (size_t i = 1; i < s.size(); ++i) {
+        if (s[i] == s[p]) o[i] = ++p;
+        else if (p) {
+            p = o[p - 1];
+            --i; // Recompare character in next loop.
+        }
+    }
+    size_t prefix = o[n - 1];
+    return prefix > 0 && n % (n - prefix) == 0;
+}
+void is_repeating_string_test() {
+    bool b;
+    b = is_repeating_string(L"zzzzbzzzz"); // false
+    b = is_repeating_string(L"zzzzbbbbbbbbbbbbbbbbbzzzz"); // false
+    b = is_repeating_string(L"zzzzxxzzzzxxzzzzxxzzzzxx"); // true
+    b = is_repeating_string(L"XXOOXXOOXXOO"); // true
+    b = is_repeating_string(L"zzzxxxyyyzzzxxxyyyzzzxxxyyy"); // true
+    b = is_repeating_string(L"zzzzxxzzzzxxzzzzxxzzzzxxx"); // false
+    b = is_repeating_string(L"abcdabcdabcdabcd"); // true
+    b = is_repeating_string(L"abcdabcd"); // true
+    b = is_repeating_string(L"abcabcabc"); // true
+    b = is_repeating_string(L"abac"); // false
+    b = is_repeating_string(L"abcdabbd"); // false
+    b = is_repeating_string(L"abcabcefg"); // false
+    b = is_repeating_string(L"zzxzzyzzx"); // false
 }
 /******************************************************************/

@@ -2,3 +2,4 @@
 
 bool is_rotation(std::wstring s1, std::wstring s2);
 size_t rabin_karp_search(const std::wstring &pat, const std::wstring &txt);
+void is_repeating_string_test();

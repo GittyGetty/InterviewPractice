@@ -160,7 +160,7 @@
     <ClCompile Include="DynamicProgramming.cpp" />
     <ClCompile Include="Geometric.cpp" />
     <ClCompile Include="Graph.cpp" />
-    <ClCompile Include="Knuth-Morris-Pratt.cpp" />
+    <ClCompile Include="KnuthMorrisPratt.cpp" />
     <ClCompile Include="LinkedLists.cpp" />
     <ClCompile Include="C++Features.cpp" />
     <ClCompile Include="Memory.cpp" />
@@ -172,7 +172,7 @@
     <ClCompile Include="Sorting.cpp" />
     <ClCompile Include="SquareRoot.cpp" />
     <ClCompile Include="Statistics.cpp" />
-    <ClCompile Include="Strings.cpp" />
+    <ClCompile Include="String.cpp" />
     <ClCompile Include="SuffixTree.cpp" />
     <ClCompile Include="TemplateMetaProgramming.cpp" />
   </ItemGroup>
@@ -189,6 +189,7 @@
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="DynamicProgramming.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="KnuthMorrisPratt.h" />
     <ClInclude Include="LinkedLists.h" />
     <ClInclude Include="Permutations.h" />
     <ClInclude Include="Queue.h" />

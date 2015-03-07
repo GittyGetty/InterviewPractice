@@ -11,13 +11,33 @@
 
 #include "Arithmetic.h"
 #include "BinaryTrees.h"
+#include "BitManipulation.h"
 #include "DataStructures.h"
 #include "DynamicProgramming.h"
+#include "Graph.h"
+#include "KnuthMorrisPratt.h"
 #include "Permutations.h"
 #include "Sorting.h"
 #include "String.h"
 
 int main() {
+    //is_repeating_string_test();
+    //return 0;
+    /***************************************************************************/
+    test_kmp();
+    return 0;
+    /***************************************************************************/
+    swap_nibbles_test();
+    return 0;
+    /***************************************************************************/
+    is_bit_palindrome_test();
+    return 0;
+    /***************************************************************************/
+    test_game_score();
+    return 0;
+    /***************************************************************************/
+    test_vertex_cover();
+    return 0;
     /***************************************************************************/
     std::vector<int> v = { 1, 2, 3, 4, 5 };
     int* a = &v[0];
