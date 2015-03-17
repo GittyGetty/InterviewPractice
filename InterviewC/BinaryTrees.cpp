@@ -322,4 +322,106 @@ namespace BinaryTrees
         return root->cover = std::min(incl, excl);
     }
     /*************************************************************************************/
+    // http://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion-and-without-stack/
+    void morris(Node<int> *root) {
+        if (!root) return;
+
+        Node<int> *cur = root, *pre;
+        while (cur) {
+            if (cur->left) {
+                pre = cur->left;
+                while (pre->right && pre->right != cur)
+                    pre = pre->right;
+
+                if (pre->right) {
+                    printf(" %d ", cur->value);
+                    pre->right = NULL;
+                    cur = cur->right;
+                } else {
+                    pre->right = cur;
+                    cur = cur->left;
+                }
+            } else {
+                printf(" %d ", cur->value);
+                cur = cur->right;
+            }
+        }
+    }
+    /*************************************************************************************/
+    Node<int>* morris(Node<int>** cs, Node<int>** ps) {
+        if (!*cs) return NULL;
+        while (*cs) {
+            if ((*cs)->left) {
+                *ps = (*cs)->left;
+                while ((*ps)->right && (*ps)->right != (*cs))
+                    *ps = (*ps)->right;
+
+                if ((*ps)->right) {
+                    auto temp = *cs;
+                    (*ps)->right = NULL;
+                    *cs = (*cs)->right;
+                    return temp;
+                }
+                else {
+                    (*ps)->right = *cs;
+                    *cs = (*cs)->left;
+                }
+            }
+            else {
+                auto temp = *cs;
+                *cs = (*cs)->right;
+                return temp;
+            }
+        }
+        return NULL;
+    }
+    void merge(Node<int> *r1, Node<int> *r2) {
+        Node<int> *cs1 = r1, *cs2 = r2, *ps1, *ps2, *n1, *n2;
+        ps1 = ps2 = n1 = n2 = NULL;
+
+        n1 = morris(&cs1, &ps1);
+        n2 = morris(&cs2, &ps2);
+
+        while (n1 || n2) {
+            if ((n1 && !n2) || (n1 && n2 && n1->value <= n2->value)) {
+                printf("%d\n", n1->value);
+                n1 = morris(&cs1, &ps1);
+            }
+            if ((n2 && !n1) || (n1 && n2 && n2->value <= n1->value)) {
+                printf("%d\n", n2->value);
+                n2 = morris(&cs2, &ps2);
+            }
+        }
+    }
+    void test_merge() {
+        // 4 2 5 1 3
+        /* 
+             7
+            / \
+           4   8
+          / \
+         2   5
+        */
+        Node<int> *root1 = new Node<int>(7);
+        root1->left = new Node<int>(4);
+        root1->right = new Node<int>(8);
+        root1->left->left = new Node<int>(2);
+        root1->left->right = new Node<int>(5);
+
+        /*
+            3
+           / \
+          1   9
+             / \
+            6  10
+        */
+        Node<int> *root2 = new Node<int>(3);
+        root2->left = new Node<int>(1);
+        root2->right = new Node<int>(9);
+        root2->right->left = new Node<int>(6);
+        root2->right->right = new Node<int>(10);
+
+        merge(root1, root2);
+    }
+    /*************************************************************************************/
 }

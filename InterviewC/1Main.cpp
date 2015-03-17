@@ -21,8 +21,18 @@
 #include "String.h"
 
 int main() {
-    //is_repeating_string_test();
-    //return 0;
+    test_XXX();
+    return 0;
+
+    longest_common_substring_test();
+    longest_common_sequence_test();
+    return 0;
+    /***************************************************************************/
+    //using namespace BinaryTrees;
+    //test_merge();
+    /***************************************************************************/
+    is_repeating_string_test();
+    return 0;
     /***************************************************************************/
     test_kmp();
     return 0;

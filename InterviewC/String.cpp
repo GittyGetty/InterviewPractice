@@ -1,4 +1,5 @@
-﻿#include <array>
+﻿#include <algorithm>
+#include <array>
 #include <string>
 #include <iostream>
 #include <cstdio>
@@ -250,5 +251,113 @@ void is_repeating_string_test() {
     b = is_repeating_string(L"abcdabbd"); // false
     b = is_repeating_string(L"abcabcefg"); // false
     b = is_repeating_string(L"zzxzzyzzx"); // false
+}
+/******************************************************************/
+// Length of longest common substring. Dynamic Programming Solution.
+// http://www.geeksforgeeks.org/longest-common-substring/
+typedef std::vector<size_t> V;
+typedef std::vector<V> VV;
+std::wstring longest_common_substring2(std::wstring X, std::wstring Y) {
+    size_t m = X.size(), n = Y.size(), max = 0, ind = 0;
+    VV sl(m + 1);
+    for (size_t i = 0; i < sl.size(); ++i) sl[i] = V(n + 1, 0);
+    for (size_t i = 1; i <= m; i++) {
+        for (size_t j = 1; j <= n; j++) {
+            if (X[i - 1] == Y[j - 1])
+                sl[i][j] = sl[i - 1][j - 1] + 1;
+            if (max < sl[i][j]) {
+                max = sl[i][j];
+                ind = i;
+            }
+        }
+    }
+    return X.substr(ind - max, max);
+}
+void longest_common_substring_test() {
+    std::wstring s;
+    s = longest_common_substring2(L"XXXabcXXX", L"YYYabcYYY");
+}
+/******************************************************************/
+// Longest common subsequence. Notice subsequences are different
+// from substrings.
+// time: O(n^2)
+// space: O(n^2)
+typedef std::vector<size_t> V;
+typedef std::vector<V> VV;
+std::wstring backtrack(VV &C, std::wstring X, std::wstring Y, size_t i, size_t j) {
+    if (i == 0 || j == 0)
+        return L"";
+    else if (X[i - 1] == Y[j - 1])
+        return backtrack(C, X, Y, i - 1, j - 1) + X[i - 1];
+    else if (C[i][j - 1] > C[i - 1][j])
+        return backtrack(C, X, Y, i, j - 1);
+    else
+        return backtrack(C, X, Y, i - 1, j);
+}
+std::wstring longest_common_sequence(std::wstring X, std::wstring Y) {
+    size_t m = X.size(), n = Y.size();
+
+    VV C = VV(m + 1);
+    for (size_t i = 0; i < m + 1; ++i) 
+        C[i] = V(n + 1, 0);
+
+    for (size_t i = 1; i <= m; ++i) 
+        for (size_t j = 1; j <= n; ++j)
+            C[i][j] = X[i - 1] == Y[j - 1] ? 
+                      C[i - 1][j - 1] + 1 : 
+                      std::max(C[i][j - 1], C[i - 1][j]);
+
+    return backtrack(C, X, Y, m, n);
+}
+void longest_common_sequence_test() {
+    std::wstring lcs;
+    lcs = longest_common_sequence(L"BDCABA", L"ABCBDAB"); // BDAB
+    lcs = longest_common_sequence(L"XMJYAUZ", L"MZJAWXU"); // MJAU
+}
+/******************************************************************/
+int f(node n) {
+    if (!n) return;
+    f(n->left);
+    f(n->right);
+    // visit n
+}
+class CC {
+    std::stack<int> s;
+    void add_left(node* n) {}
+    CC(node* n) {
+        add_left(n);
+        add_left(s.top()->right);
+    }
+    node* next(node* root) {
+        while (root) {
+            if (root->right)
+                push(stack, root->right);
+            push(stack, root);
+            root = root->left;
+        }
+
+        root = pop(stack);
+
+        if (root->right && peek(stack) == root->right) {
+            pop(stack); 
+            push(stack, root);
+            root = root->right;
+        }
+        else
+        {
+            printf("%d ", root->data);
+            root = NULL;
+        }
+    }
+
+public:
+    node* next() {
+    }
+};
+void test_XXX() {
+    CC c;
+    int i;
+    i = c.fun1(10, 10);
+    i = fun1(10, 10);
 }
 /******************************************************************/

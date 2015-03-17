@@ -7,7 +7,7 @@
 
 #include "BitManipulation.h"
 
-/***********************************************************/
+/**********************************************************************/
 typedef std::tuple<size_t, size_t> range;
 range find_sub_with_sum(const std::vector<unsigned> &a, unsigned s) {
     unsigned cs = 0;
@@ -21,7 +21,8 @@ range find_sub_with_sum(const std::vector<unsigned> &a, unsigned s) {
 /*
 auto t = find_sub_with_sum({ 0, 10, 5, 15, 20 }, 20);
 */
-/***********************************************************/
+/**********************************************************************/
+// Find median of two sorted arrays of equal length.
 int median(const int a[], size_t n) {
     return (a[n / 2] + a[(n - 1) / 2]) / 2;
 }
@@ -36,7 +37,8 @@ int median(const int a1[], const int a2[], size_t n) {
     if (m1 > m2) std::swap(a1, a2);
     return median(a1 + (n - 1) / 2, a2, (n + 2) / 2);
 }
-/***********************************************************/
+/**********************************************************************/
+// Find maximum sum of an array of numbers.
 int max_sum(const std::vector<int> &a) {
     if (a.empty()) return 0;
     int maxi = a[0], max = a[0];
@@ -46,7 +48,7 @@ int max_sum(const std::vector<int> &a) {
     }
     return max;
 }
-/***********************************************************/
+/**********************************************************************/
 int max_product(const std::vector<int> &a) {
     if (a.empty()) return 0;
     int maxi = a[0], mini = a[0], max = a[0];
@@ -59,11 +61,7 @@ int max_product(const std::vector<int> &a) {
     }
     return max;
 }
-/***********************************************************/
-int booth_multiply(int a, int b) {
-    return 0;
-}
-/***********************************************************/
+/**********************************************************************/
 uint64_t long_multiplication(uint32_t a, uint32_t b) {
     const size_t n = sizeof(uint32_t) * CHAR_BIT;
     auto av = std::bitset<n>(a), bv = std::bitset<n>(b);
