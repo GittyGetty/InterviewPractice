@@ -1,8 +1,9 @@
 #include <algorithm>
-#include <string>
 #include <functional>
 #include <memory>
 #include <numeric>
+#include <stack>
+#include <string>
 
 #include "BinaryTrees.h"
 
@@ -422,6 +423,62 @@ namespace BinaryTrees
         root2->right->right = new Node<int>(10);
 
         merge(root1, root2);
+    }
+    /*************************************************************************************/
+    void push_inorder(std::stack<Node<int>*> &s, Node<int> *n) {
+        if (n->left) s.push(n->left);
+        s.push(n);
+    }
+    void traverse_inorder(Node<int> *n) {
+        std::stack<Node<int>*> s;
+        push_inorder(s, n);
+        while (!s.empty()) {
+            n = s.top();
+            s.pop();
+            if (!s.empty() && s.top() == n->left) {
+                Node<int>* t = s.top();
+                s.pop();
+                s.push(n);
+                push_inorder(s, t);
+            }
+            else {
+                std::cout << n->value << std::endl;
+                if (n->right) push_inorder(s, n->right);
+            }
+        }
+    }
+    void test_traverse_inorder() {
+        std::vector<int> v(10);
+        std::iota(v.begin(), v.end(), 1);
+        auto tree = generate_random_tree(v);
+        auto settings = gcnew Microsoft::VisualStudio::GraphModel::GraphSerializationSettings();
+        ToGraph(&tree)->Save("BinaryTree.dgml", settings);
+        traverse_inorder(&tree);
+    }
+    /*************************************************************************************/
+    template <typename T> struct LNode {
+        LNode(T t) {
+            this->value = t;
+            this->next = NULL;
+        }
+        T value;
+        LNode<T> *next;
+    };
+    LNode<int>** bst_to_dlist(LNode<int> **l, Node<int> *n) {
+        if (!n) return l;
+        l = bst_to_dlist(l, n->left);
+        *l = new LNode<int>(n->value);
+        l = &((*l)->next);
+        return l = bst_to_dlist(l, n->right);
+    }
+    void test_bst_to_dlist() {
+        std::vector<int> v(10);
+        std::iota(v.begin(), v.end(), 1);
+        auto tree = generate_random_tree(v);
+        auto settings = gcnew Microsoft::VisualStudio::GraphModel::GraphSerializationSettings();
+        ToGraph(&tree)->Save("BinaryTree.dgml", settings);
+        LNode<int>* list;
+        bst_to_dlist(&list, &tree);
     }
     /*************************************************************************************/
 }

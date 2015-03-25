@@ -4,6 +4,7 @@
 #include <vector>
 #include <bitset>
 #include <cstdint>
+#include <vector>
 
 #include "BitManipulation.h"
 
@@ -213,5 +214,113 @@ long sum_numbers(const std::vector<int> &a) {
 }
 long sum_numbers_stl(const std::vector<int> &a) {
     return std::accumulate(a.begin(), a.end(), 0);
+}
+/**********************************************************************/
+int make_segment_tree(std::vector<int> &a, std::vector<int> &st, size_t s, size_t e, size_t node) {
+    size_t mid = s + (e - s) / 2;
+    return st[node] = s == e ? a[s] :
+        make_segment_tree(a, st, s, mid, node * 2 + 1)
+        + make_segment_tree(a, st, mid + 1, e, node * 2 + 2);
+}
+std::vector<int> make_segment_tree(std::vector<int> &a) {
+    size_t height = (size_t)std::ceil(std::log2(a.size()));
+    size_t nodes = (size_t)pow(2, height + 1) - 1;
+    std::vector<int> st(nodes, 0);
+    make_segment_tree(a, st, 0, a.size() - 1, 0);
+    return st;
+}
+// O(log(n)), O(n)
+int segment_sum(std::vector<int> &st, size_t ss, size_t se, size_t node, size_t rs, size_t re) {
+    if (rs <= ss && se <= re) return st[node];
+    if (se < rs || re < ss) return 0;
+    size_t mid = ss + (se - ss) / 2;
+    return segment_sum(st, ss, mid, node * 2 + 1, rs, re) +
+        segment_sum(st, mid + 1, se, node * 2 + 2, rs, re);
+}
+int segment_sum(std::vector<int> &st, size_t size, size_t rs, size_t re) {
+    return segment_sum(st, 0, size - 1, 0, rs, re);
+}
+void segment_tree_test() {
+    std::vector<int> arr = { 1, 2, 3, 4, 5, 6, 7 };
+    std::vector<int> st = make_segment_tree(arr);
+    int sum;
+    sum = segment_sum(st, arr.size(), 0, arr.size() - 1);
+    sum = segment_sum(st, arr.size(), 0, 0);
+    sum = segment_sum(st, arr.size(), 0, 1);
+    sum = segment_sum(st, arr.size(), 1, 1);
+    sum = segment_sum(st, arr.size(), 3, 5);
+
+}
+/**********************************************************************/
+int dp_subrange_sum(std::vector<int> &input, size_t s, size_t e) {
+    auto dp = std::vector<std::vector<int>>(input.size());
+    for (size_t i = 0; i < dp.size(); ++i) dp[i] = std::vector<int>(input.size());
+    for (size_t l = 0; l < input.size(); ++l)
+        for (size_t i = 0; i < input.size() - l; ++i) 
+            dp[i][i + l] =  !l ? input[i] : dp[i][i + l - 1] + input[i + l];
+    return dp[s][e];
+}
+void dp_subrange_sum_test() {
+    std::vector<int> a = { 1, 2, 3, 4, 5, 6, 7 };
+    int sum;
+    sum = dp_subrange_sum(a, 0, 1);
+    sum = dp_subrange_sum(a, 3, 6);
+}
+/**********************************************************************/
+// Check if array elements are consecutive. Increasing or decreasing.
+bool is_consecutive(std::vector<int> &a) {
+    if (a.size() <= 1) return true;
+    bool increasing = a[1] - a[0] == 1;
+    for (size_t i = 1; i < a.size(); ++i) {
+        if (increasing && a[i] - a[i - 1] != 1) return false;
+        if (!increasing && a[i - 1] - a[i] != 1) return false;
+    }
+    return true;
+}
+/**********************************************************************/
+int sum(int n) { return n * (n + 1) / 2; }
+int sum_range(int min, int max) { return sum(max) - sum(min - 1); }
+int find_missing2(std::vector<int> &a) {
+    int min = a[0], max = a[0], sp = 0, sn = 0;
+    for (int i : a) {
+        max = std::max(max, i);
+        min = std::min(min, i);
+        if (i > 0) sp += i;
+        if (i < 0) sn += -i;
+    }
+    if (!sn) return sum_range(min, max) - sp;
+    if (!sp) return sn - sum_range(-max, -min);
+    return sn - sum_range(0, -min) + sum_range(0, max) - sp;
+}
+int find_missing(std::vector<int> &a) {
+    int min = a[0], max = a[0], x = 0, e = 0;
+    for (int i : a) {
+        max = std::max(max, i);
+        min = std::min(min, i);
+        x ^= i;
+    }
+    for (int i = min; i <= max; ++i) e ^= i;
+    return x ^ e;
+}
+void* find_missing(std::vector<void*> &a, std::vector<void*> &b) {
+    long xa = 0, xb = 0;
+    for (void* p : a) xa ^= (long)p;
+    for (void* p : b) xb ^= (long)p;
+    return (void*)(xa ^ xb);
+}
+void find_missing_test() {
+    auto a = std::vector<void*> { new int(3), new int(4), new int(5), new int(6), new int(7) };
+    auto b = std::vector<void*>(a);
+    b.erase(b.begin() + 2);
+    int *p = (int*)find_missing(a, b);
+
+    int r;
+    r = find_missing(std::vector<int> { -1, 1 }); // 0
+    r = find_missing(std::vector<int> { -1, 0, 2 }); // 1
+    r = find_missing(std::vector<int> { -2, 0, 1 }); // -1
+    r = find_missing(std::vector<int> { -2, -3, -5, -6 }); // -4
+    r = find_missing(std::vector<int> { 1, 2, 3, 5, 6 }); // 4
+    r = find_missing(std::vector<int> { -3, 3, 2, -1, 1, 0 }); // -2
+    r = find_missing(std::vector<int> { -3, 3, -2, -1, 1, 0 }); // 2
 }
 /**********************************************************************/

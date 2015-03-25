@@ -43,10 +43,10 @@ T sqrt_precise(const T x, const T precision) {
 		T t;
 	} u;
 	u.t = x;
-	u.i = (u.i >> 1) + IEEE<T>::sqrt_mask;
+	u.i = (u.i >> 1) + IEEE<T>::sqrt_mask; // x / 2 + b * 2^(m-1)
 
-	while ((u.t * u.t) - x > precision) 
-		u.t = (u.t + x / u.t) / 2;
+	while ((u.t * u.t) - x > precision)
+		u.t = (u.t + x / u.t) / 2; // Newton's method: f(x) = x^2 - y
 	return u.t;
 }
 /********************************************************************/

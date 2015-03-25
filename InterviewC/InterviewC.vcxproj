@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="1Main.cpp" />
     <ClCompile Include="Arithmetic.cpp" />
+    <ClCompile Include="Arrangements.cpp" />
     <ClCompile Include="BinaryTrees.cpp" />
     <ClCompile Include="BitManipulation.cpp" />
     <ClCompile Include="Cache.cpp" />
@@ -183,17 +184,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arithmetic.h" />
+    <ClInclude Include="Arrangements.h" />
     <ClInclude Include="BinaryTrees.h" />
     <ClInclude Include="BitManipulation.h" />
     <ClInclude Include="Cache.h" />
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="DynamicProgramming.h" />
+    <ClInclude Include="Geometric.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="KnuthMorrisPratt.h" />
     <ClInclude Include="LinkedLists.h" />
     <ClInclude Include="Permutations.h" />
     <ClInclude Include="Queue.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Sorting.h" />
     <ClInclude Include="SquareRoot.h" />
     <ClInclude Include="String.h" />
