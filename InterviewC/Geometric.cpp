@@ -62,49 +62,39 @@ double closest(const Points &points) {
     return closest_sorted(px, py);
 }
 /*****************************************************************************/
-
-struct Building { int left, height, right; };
-struct Strip { int left, height; };
+struct Building { int l, h, r; };
+struct Strip { int l, h; };
 typedef std::vector<Strip> Skyline;
 typedef std::vector<Building> Buildings;
 void append(Skyline &sl, Strip &s) {
     if (!sl.empty()) {
         Strip b = sl.back();
-        // Gaps between buildings count as zero height.
-        if (b.height == s.height) return;
-        if (b.left == s.left) {
-            // Assumes that higher buildinds with same left
-            // are always wider.
-            b.height = std::max(b.height, s.height);
+        if (b.h == s.h) return;
+        if (b.l == s.l) {
+            b.h = std::max(b.h, s.h);
             return;
         }
     }
     sl.push_back(s);
 }
-Skyline merge(Skyline &sl, Skyline &sr) {
-    Skyline r;
-    int hl = 0, hr = 0;
+Skyline merge(Skyline &ls, Skyline &rs) {
+    Skyline s;
     size_t li = 0, ri = 0;
-    while (li < sl.size() && ri < sr.size()) {
-        if (sl[li].left < sr[ri].left) {
-            hl = sl[li].height;
-            append(r, Strip{ sl[li].left, std::max(hl, hr) });
-            li++;
-        } else {
-            hr = sr[ri].height;
-            append(r, Strip{ sr[ri].left, std::max(hl, hr) });
-            ri++;
-        }
+    Strip hl = { 0, 0 }, hr = { 0, 0 };
+    while (li < ls.size() && ri < rs.size()) {
+        int l = std::min(ls[li].l, rs[ri].l);
+        ls[li].l < rs[ri].l ? hl = ls[li++] : hr = rs[ri++];
+        append(s, Strip{ l, std::max(hl.h, hr.h) });
     }
-    for (Strip s : sl) append(r, s);
-    for (Strip s : sr) append(r, s);
-    return r;
+    while (li < ls.size()) append(s, ls[li++]);
+    while (ri < rs.size()) append(s, rs[ri++]);
+    return s;
 }
 Skyline skyline(Buildings &b, size_t l, size_t r) {
     if (l == r) {
         Skyline s;
-        append(s, Strip{ b[l].left, b[l].height });
-        append(s, Strip{ b[l].right, 0 });
+        append(s, Strip{ b[l].l, b[l].h });
+        append(s, Strip{ b[l].r, 0 });
         return s;
     }
     size_t mid = (l + r) / 2;
