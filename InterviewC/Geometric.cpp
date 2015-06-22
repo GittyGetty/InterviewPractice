@@ -62,29 +62,35 @@ double closest(const Points &points) {
     return closest_sorted(px, py);
 }
 /*****************************************************************************/
+// http://www.geeksforgeeks.org/divide-and-conquer-set-7-the-skyline-problem/
 struct Building { int l, h, r; };
 struct Strip { int l, h; };
 typedef std::vector<Strip> Skyline;
 typedef std::vector<Building> Buildings;
 void append(Skyline &sl, Strip &s) {
-    if (!sl.empty()) {
-        Strip b = sl.back();
-        if (b.h == s.h) return;
-        if (b.l == s.l) {
-            b.h = std::max(b.h, s.h);
-            return;
-        }
+    if (sl.empty()) {
+        sl.push_back(s);
+        return;
+    }
+    Strip b = sl.back();
+    // Just continue the line. The end is implied by the next Strip's left value.
+    if (b.h == s.h) return;
+    if (b.l == s.l) {
+        b.h = std::max(b.h, s.h);
+        return;
     }
     sl.push_back(s);
 }
 Skyline merge(Skyline &ls, Skyline &rs) {
     Skyline s;
     size_t li = 0, ri = 0;
-    Strip hl = { 0, 0 }, hr = { 0, 0 };
+    int lh = 0, rh = 0;
     while (li < ls.size() && ri < rs.size()) {
+        Strip lst = ls[li], rst = rs[ri];
+
         int l = std::min(ls[li].l, rs[ri].l);
-        ls[li].l < rs[ri].l ? hl = ls[li++] : hr = rs[ri++];
-        append(s, Strip{ l, std::max(hl.h, hr.h) });
+        ls[li].l < rs[ri].l ? lh = ls[li++].h : rh = rs[ri++].h;
+        append(s, Strip{ l, std::max(lh, rh) });
     }
     while (li < ls.size()) append(s, ls[li++]);
     while (ri < rs.size()) append(s, rs[ri++]);

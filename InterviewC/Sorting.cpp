@@ -3,6 +3,8 @@
 #include <functional>
 #include <iterator>
 #include <memory>
+#include <unordered_map>
+
 #include "Sorting.h"
 /*************************************************************************************/
 void counting_sort(int* a, size_t n, size_t k) {
@@ -207,5 +209,42 @@ void median_of_medians_test() {
     res = mom(v, 0, v.size(), 5);
     v = { 1, 1, 2, 3, 4, 5, 5, 6, 7, 100 };
     res = mom(v, 0, v.size(), 5);
+}
+/*************************************************************************************/
+// Groups duplicates, not necessarily in order.
+// O(n^2), O(1)
+std::vector<int> group_unordered(std::vector<int> &v) {
+    size_t j;
+    for (size_t gs = 0; gs < v.size(); gs = j) {
+        j = gs + 1;
+        for (size_t i = j + 1; i < v.size(); ++i) {
+            if (v[i] == v[gs]) std::swap(v[i], v[j++]);
+        }
+    }
+    return v;
+}
+void group_unordered_test() {
+    std::vector<int> v;
+    v = group_unordered(std::vector<int> { 1, 5, 4, 2, 3, 4, 1, 1, 4, 3, 2, 5 });
+}
+/*************************************************************************************/
+std::vector<int> group_ordered(std::vector<int> &v) {
+    std::unordered_map<int, int> m;
+    std::vector<int> r;
+    for (size_t i = 0; i < v.size(); i++) {
+        if (m.find(v[i]) == m.end()) m[v[i]] = 1;
+        else m[v[i]]++;
+    }
+    for (size_t i = 0; i < m.bucket_count(); i++) {
+        if (m.find(v[i]) != m.end() && m[v[i]] > 0) {
+            for (size_t j = 0; j < m[v[i]]; j++) r.push_back(v[i]);
+            m[v[i]] = 0;
+        }
+    }
+    return r;
+}
+void group_duplicates_ordered_test() {
+    std::vector<int> v;
+    v = group_ordered(std::vector<int> { 1, 5, 4, 2, 3, 4, 1, 1, 4, 3, 2, 5 });
 }
 /*************************************************************************************/

@@ -23,6 +23,6 @@
 #include "String.h"
 
 int main() {
-    skyline_test();
+    group_duplicates_test();
     return 0;
 }

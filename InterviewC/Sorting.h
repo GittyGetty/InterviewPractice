@@ -10,3 +10,4 @@ void bubble_sort(std::vector<int> &a);
 void straight_insertion_sort(std::vector<int> &v);
 void test_select_k();
 void median_of_medians_test();
+void group_duplicates_test();
