@@ -23,6 +23,5 @@
 #include "String.h"
 
 int main() {
-    group_duplicates_test();
     return 0;
 }

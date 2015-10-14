@@ -108,7 +108,7 @@ namespace BinaryTrees
         std::vector<Node<T>*> leaves;
         leaves.push_back(root);
         GraphNode^ rootNode = graph->Nodes->CreateNew(root->value.ToString());
-        String^ rootColor = root->color ? " " + gcnew String(new wchar_t[] { (wchar_t)root->color, L'\0' }) : L"";
+        String^ rootColor = root->color ? " " + gcnew String(new wchar_t[2] { (wchar_t)root->color, L'\0' }) : L"";
         rootNode->Label = root->value.ToString() + rootColor;
         nodeToId->Add((IntPtr)root, rootNode->Id);
 
@@ -120,14 +120,14 @@ namespace BinaryTrees
             GraphNodeId^ id = nodeToId[(IntPtr)node];
             GraphNode^ parent = graph->Nodes->Get(id);
 
-            String^ leftColor = node->left && node->left->color ? " " + gcnew String(new wchar_t[] { (wchar_t)node->left->color, L'\0' }) : "";
+            String^ leftColor = node->left && node->left->color ? " " + gcnew String(new wchar_t[2] { (wchar_t)node->left->color, L'\0' }) : "";
             String^ labelLeft = node->left == NULL ? "None" : node->left->value.ToString() + leftColor;
             GraphNode^ left = graph->Nodes->CreateNew(labelLeft);
             left->Label = labelLeft;
             GraphLink^ leftLink = graph->Links->GetOrCreate(parent, left);
             leftLink->Label = L"Left";
 
-            String^ rightColor = node->right && node->right->color ? " " + gcnew String(new wchar_t[] { (wchar_t)node->right->color, L'\0' }) : "";
+            String^ rightColor = node->right && node->right->color ? " " + gcnew String(new wchar_t[2] { (wchar_t)node->right->color, L'\0' }) : "";
             String^ labelRight = node->right == NULL ? L"None" : node->right->value.ToString() + rightColor;
             GraphNode^ right = graph->Nodes->CreateNew(labelRight);
             right->Label = labelRight;
